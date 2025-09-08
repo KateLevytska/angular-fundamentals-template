@@ -76,22 +76,14 @@ export class AppComponent implements OnInit, OnDestroy {
     - Subscribe to changes
     - Check the received value using the areAllValuesTrue function and pass them to the isLoading variable. */
     // YOUR CODE STARTS HERE
-    let hideTimeout: any;
+    this.isLoading = true;
     
     const loadingSub = combineLatest([
       this.mockDataService.getCharactersLoader(),
       this.mockDataService.getPlanetLoader()
     ])
       .subscribe((loaders) => {
-      const loading = this.areAllValuesTrue(loaders);
-      if (loading) {
-        clearTimeout(hideTimeout);
-        this.isLoading = true;
-      } else {
-        hideTimeout = setTimeout(() => {
-          this.isLoading = false;
-        }, 2000);
-      }
+      this.isLoading = this.areAllValuesTrue(loaders);
     });
   this.subscriptions.push(loadingSub);
     // YOUR CODE ENDS HERE
