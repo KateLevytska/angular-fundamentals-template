@@ -1,3 +1,4 @@
+
 <div class="title">{{ title }}</div>
 <div class="course-info">
   <div class="course-info__description">
@@ -5,8 +6,8 @@
   </div>
   <div class="course-info__info">
     <div><b>ID: </b><span class="course-info__info-id">{{ id }}</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">{{ duration | customDate }}</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">{{ creationDate | duration }}</span></div>
+    <div><b>Duration: </b><span class="course-info__info-duration">{{ duration | duration }}</span></div>
+    <div><b>Created: </b><span class="course-info__info-date">{{ creationDate | customDate }}</span></div>
     <div><b>Authors: </b><span class="course-info__info-authors">{{ authors }}</span></div>
   </div>
 </div>

@@ -4,18 +4,17 @@ import { Pipe } from '@angular/core';
     name: 'customDate'
 })
 export class CustomDatePipe {
-    transform(minutes: number): string {
-        return this.getCourseDuration(minutes);
-    }
-
-    getCourseDuration(minutes: number): string {
-        const hours = Math.floor(minutes / 60);
-        const mins = minutes % 60;
-
-        const hh = hours < 10 ? `0${hours}` : `${hours}`;
-        const mm = mins < 10 ? `0${mins}` : `${mins}`;
-        const suffix = hours === 1 ? 'hour' : 'hours';
-
-        return `${hh}:${mm} ${suffix}`;
+    transform(date: Date | string): string {
+        let dateStr: string;
+        if (date instanceof Date) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            dateStr = `${day}.${month}.${year}`;
+        } else {
+            const [day, month, year] = date.split('/');
+            dateStr = `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
+        }
+        return dateStr;
     }
 }
