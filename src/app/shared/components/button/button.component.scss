@@ -4,18 +4,19 @@
     justify-content: center;
     align-items: center;
     padding: 13px 36px;
-    gap: 10px;
     background: #007298;
     border-radius: 4px;
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus,
+    &:active {
         background: #016486;
     }
 
     &__single-icon {
-        padding: 13px;
+        padding: 12px 18px;
     }
 }

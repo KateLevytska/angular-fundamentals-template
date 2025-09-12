@@ -1,13 +1,27 @@
-<app-header></app-header>
+<app-header>
+  <div class="app-root__login-block">
+    <p *ngIf="isLoggedIn">{{ userName }}</p>
+    <app-button
+      [buttonText]="isLoggedIn ? 'Logout' : 'Login'"
+      (click)="toggleLogin()">
+    </app-button>
+  </div>
+</app-header>
 <div class="app-root">
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
-  <!-- Info component -->
-  <!--<app-info></app-info>-->
 
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <app-info>
+    <app-button [buttonText]="'Add new course'"></app-button>
+  </app-info>
+
+  <app-course-info></app-course-info>
+
+  <app-course-list [courses]="courses" [editable]="true" (showCourse)="handleShowCourse()"
+    (editCourse)="handleEditCourse()" (deleteCourse)="handleDeleteCourse()">
+  </app-course-list>
+
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->
