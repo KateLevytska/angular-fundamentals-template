@@ -28,5 +28,4 @@ export class RegistrationFormComponent implements OnInit {
     this.submitted = true;
     console.log(value);
   }
-  // Use the names `name`, `email`, `password` for the form controls.
 }

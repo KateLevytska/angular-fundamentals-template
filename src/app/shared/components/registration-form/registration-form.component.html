@@ -29,10 +29,14 @@
       </div>
       <div class="form__control">
         <label for="password" class="password-toggle">Password
-        <input id="password" placeholder="Input text"formControlName="password" passwordShown #p="passwordShown"/>
+        <input id="password" placeholder="Input text" formControlName="password" passwordShown #p="passwordShown"/>
           <app-button buttonNgClass="app-button__without-background password-toggle__button" [iconName]="p.icon" (click)="p.changeType()"></app-button>
           </label>
-        <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <div *ngIf="( submitted || registrationForm.touched)">
+            <span id="passwordErrorMessage" *ngIf="registrationForm.get('password')?.hasError('required')" class="text-danger">
+              Password is required.
+            </span>
+          </div>
       </div>
     </div>
     <div class="form__action">
