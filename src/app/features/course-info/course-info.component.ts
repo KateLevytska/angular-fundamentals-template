@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-course-info',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./course-info.component.scss']
 })
 export class CourseInfoComponent {
-  // Use the names for the input `course`.
+@Input()  title: string = 'Course Title';
+@Input() description: string = 'description';
+@Input() id: string = '';
+@Input() creationDate: Date = new Date();
+@Input() duration: number  = 0;
+@Input() authors: string[]   = ['Author Name'];
+@Input() isEditible: boolean = true;
+@Input() isShowBackButton: boolean = true;
+
 }
