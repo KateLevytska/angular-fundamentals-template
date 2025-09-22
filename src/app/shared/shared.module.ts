@@ -17,7 +17,6 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { AuthorsPipe } from './pipes/authors-ids.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
-import { PasswordShownDirective } from './directives/password.directive';
 
 const components = [
   HeaderComponent,
@@ -32,8 +31,7 @@ const components = [
   DurationPipe,
   CustomDatePipe,
   AuthorsPipe,
-  EmailValidatorDirective,
-  PasswordShownDirective
+  EmailValidatorDirective
 ];
 
 @NgModule({
