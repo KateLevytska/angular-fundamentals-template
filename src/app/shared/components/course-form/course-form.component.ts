@@ -20,7 +20,7 @@ interface Author {
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.scss'],
 })
-export class CourseFormComponent implements OnInit {
+export class CourseComponent implements OnInit {
   public courseForm!: FormGroup;
   public formSubmitted = false;
 
