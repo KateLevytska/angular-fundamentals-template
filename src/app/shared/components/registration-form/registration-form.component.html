@@ -1,44 +1,92 @@
 <h2 class="text-align-center">Registration</h2>
+
 <div class="app-plate">
-  <form class="registration-form" [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm.value)">
-    <div>
-      <div class="form__control">
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Input text" formControlName="name" />
-        <div *ngIf="( submitted || registrationForm.touched)">
-          <span id="nameErrorMessage" class="text-danger" *ngIf="registrationForm.get('name')?.hasError('required')">
-            Name is required.
-          </span>
-          <span id="nameErrorMessage" class="text-danger" *ngIf="registrationForm.get('name')?.hasError('minlength')">
-            Name should not be less than 6 symbols;
-          </span>
-        </div>
-      </div>
-      <div class="form__control">
-        <label for="email">Email</label>
-        <input type="text" id="email" emailValidator placeholder="Input text" formControlName="email" />
-        <div *ngIf="( submitted || registrationForm.touched)">
-          <span id="emailErrorMessage" class="text-danger" *ngIf="registrationForm.get('email')?.hasError('required')">
-            Email is required.
-          </span>
-          <span id="emailErrorMessage" class="text-danger"
-            *ngIf="registrationForm.get('email')?.hasError('emailInvalid')">
-            Invalid email format.
-          </span>
-        </div>
-      </div>
-      <div class="form__control">
-        <label for="password">Password</label>
-         <input id="password" placeholder="Input text" formControlName="password"/>
-          <div *ngIf="( submitted || registrationForm.touched)">
-            <span id="passwordErrorMessage" *ngIf="registrationForm.get('password')?.hasError('required')" class="text-danger">
-              Password is required.
-            </span>
-          </div>
-      </div>
+  <form
+    class="registration-form"
+    [formGroup]="registrationForm"
+    (ngSubmit)="onSubmit(registrationForm.value)"
+    novalidate
+  >
+    <div class="form__control">
+      <label for="name">Name</label>
+      <input
+        id="name"
+        type="text"
+        placeholder="Input text"
+        formControlName="name"
+        autocomplete="name"
+      />
+
+      <span
+        id="nameErrorMessage"
+        class="text-danger"
+        *ngIf="(submitted || registrationForm.get('name')?.touched)
+               && (registrationForm.get('name')?.hasError('required')
+                   || registrationForm.get('name')?.hasError('minlength'))"
+      >
+        <ng-container *ngIf="registrationForm.get('name')?.hasError('required'); else nameMinlengthMsg">
+          Name is required.
+        </ng-container>
+        <ng-template #nameMinlengthMsg>
+          Name should be at least 6 characters.
+        </ng-template>
+      </span>
     </div>
+
+    <div class="form__control">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="text"
+        placeholder="Input text"
+        formControlName="email"
+        emailValidator
+        autocomplete="email"
+      />
+
+      <span
+        id="emailErrorMessage"
+        class="text-danger"
+        *ngIf="(submitted || registrationForm.get('email')?.touched)
+               && (registrationForm.get('email')?.hasError('required')
+                   || registrationForm.get('email')?.hasError('email')
+                   || registrationForm.get('email')?.hasError('emailInvalid'))"
+      >
+        <ng-container *ngIf="registrationForm.get('email')?.hasError('required'); else emailFormatMsg">
+          Email is required.
+        </ng-container>
+        <ng-template #emailFormatMsg>
+          Invalid email format.
+        </ng-template>
+      </span>
+    </div>
+    
+    <div class="form__control">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        placeholder="Input text"
+        formControlName="password"
+        autocomplete="new-password"
+      />
+
+      <span
+        id="passwordErrorMessage"
+        class="text-danger"
+        *ngIf="(submitted || registrationForm.get('password')?.touched)
+               && registrationForm.get('password')?.hasError('required')"
+      >
+        Password is required.
+      </span>
+    </div>
+
     <div class="form__action">
-      <app-button type="submit" [buttonNgClass]="'app-button__full-width'" buttonText="Registration"></app-button>
+      <app-button
+        type="submit"
+        [buttonNgClass]="'app-button__full-width'"
+        buttonText="Registration">
+      </app-button>
     </div>
   </form>
 </div>

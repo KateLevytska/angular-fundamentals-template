@@ -8,17 +8,17 @@
           <input name="email" emailValidator type="text" id="email" placeholder="Input text" required ngModel
             #email="ngModel" />
           <div *ngIf="( loginForm.submitted || email.touched)">
-            <span id="passwordErrorMessage" class="text-danger" *ngIf="email.errors?.['required']">
+            <span id="emailErrorMessage" class="text-danger" *ngIf="email.errors?.['required']">
               Email is required.
             </span>
-            <span id="passwordErrorMessage" class="text-danger" *ngIf="email.errors?.['emailInvalid']">
+            <span id="emailErrorMessage" class="text-danger" *ngIf="email.errors?.['emailInvalid']">
               Invalid email format.
             </span>
           </div>
         </div>
-        <div class="form__control" #passwordShown>
+        <div class="form__control">
           <label for="password">Password</label>
-          <input name="password" type="password" id="password" #passInput #passwordShown.changeType placeholder="Input text" required ngModel
+          <input name="password" type="password" id="password" placeholder="Input text" required ngModel
             #password="ngModel" />
           <div *ngIf="( loginForm.submitted || password.touched)">
             <span id="passwordErrorMessage" class="text-danger" *ngIf="password.errors?.['required']">
