@@ -20,7 +20,7 @@
       <span
         id="nameErrorMessage"
         class="text-danger"
-        *ngIf="(submitted || registrationForm.get('name')?.touched)
+        *ngIf="(submitted || nameControl.touched)
                && (registrationForm.get('name')?.hasError('required')
                    || registrationForm.get('name')?.hasError('minlength'))"
       >
@@ -47,7 +47,7 @@
       <span
         id="emailErrorMessage"
         class="text-danger"
-        *ngIf="(submitted || registrationForm.get('email')?.touched)
+        *ngIf="(submitted || emailControl.touched)
                && (registrationForm.get('email')?.hasError('required')
                    || registrationForm.get('email')?.hasError('email')
                    || registrationForm.get('email')?.hasError('emailInvalid'))"
@@ -74,7 +74,7 @@
       <span
         id="passwordErrorMessage"
         class="text-danger"
-        *ngIf="(submitted || registrationForm.get('password')?.touched)
+        *ngIf="(submitted || passwordControl.touched)
                && registrationForm.get('password')?.hasError('required')"
       >
         Password is required.

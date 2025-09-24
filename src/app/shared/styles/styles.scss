@@ -40,6 +40,10 @@ $color-red: #FF0000;
         }
     }
 
+    &__author {
+        gap: 24px;
+    }
+
     &__bottom {
         display: flex;
         align-items: flex-start;

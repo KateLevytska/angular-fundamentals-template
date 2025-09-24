@@ -75,6 +75,24 @@ export class CourseComponent implements OnInit {
     >;
   }
 
+  public get titleNameControl(): FormControl<string | null> {
+    return this.courseForm.get('textForm.title') as FormControl<
+      string | null
+    >;
+  }
+
+  public get descriptionNameControl(): FormControl<string | null> {
+    return this.courseForm.get('textForm.description') as FormControl<
+      string | null
+    >;
+  }
+
+  public get durationNameControl(): FormControl<string | null> {
+    return this.courseForm.get('textForm.duration') as FormControl<
+      string | null
+    >;
+  }
+
 
   public get allAuthorsForView(): Author[] {
     return [...this.mockedAuthors, ...this.createdAuthorsByUser];
@@ -128,7 +146,6 @@ export class CourseComponent implements OnInit {
     this.formSubmitted = true;
     const payload = {
       ...this.courseForm.value,
-      // ensure courseItems is exactly the array of selected author IDs
       courseItems: this.courseItemsFA.value,
     };
     console.log('Form submit payload:', payload);
