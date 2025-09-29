@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Course, onDeleteResponce } from '../../../interfaces';
 import { UserStoreService } from '../../../user/services/user-store.service'
 import { CoursesStoreService } from '../../../services/courses-store.service';
@@ -12,11 +12,11 @@ import { take } from 'rxjs';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css']
 })
-export class CourseListComponent {
+export class CourseListComponent implements OnInit {
 
   @Input() courses: Course[] = [];
   @Input() authors: string[] = [];
-  @Input() editable: boolean = this.UserStoreService.isAdmin;
+  @Input() editable = false;
 
   @Output() showCourse = new EventEmitter<string>();
   @Output() editCourse = new EventEmitter<any>();
@@ -25,6 +25,12 @@ export class CourseListComponent {
   constructor(
     private UserStoreService: UserStoreService, private CourseStoreService: CoursesStoreService, private router: Router
   ) { }
+
+  ngOnInit(): void {
+    if (!this.editable) {
+    this.editable = this.UserStoreService.isAdmin;
+  }
+  }
 
   onShow(id: string) {
     this.showCourse.emit(id);
@@ -42,6 +48,5 @@ export class CourseListComponent {
         }
       }
     })
-
   }
 }
