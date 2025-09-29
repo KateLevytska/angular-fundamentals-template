@@ -15,40 +15,34 @@ export class AppComponent implements OnInit {
   title = 'courses-app';
   isLoggedIn = false;
   isAdmin = this.UserStoreService.isAdmin;
-  userName = this.isLoggedIn? this.UserStoreService.name$ : null;
+  userName$ = this.UserStoreService.name$;
 
 
   constructor(private AuthService: AuthService, private UserStoreService: UserStoreService, private router: Router) { }
 
   ngOnInit(): void {
-    this.AuthService.isAuthorized$.pipe().subscribe(e => {
-      this.isLoggedIn = e;
-    })
-    if(this.isLoggedIn) this.UserStoreService.getUser();
-    this.UserStoreService.isAdmin$.subscribe(isAdmin => {
-      this.isAdmin = isAdmin;
-      console.log(this.isAdmin)
-    });
+    this.UserStoreService.name$.pipe(take(1)).subscribe(
+      {
+        next: (res) => {
+          console.log(res)
+        }
+        
+      }
+    )
+    this.AuthService.isAuthorized$.subscribe(isAuth => {
+    this.isLoggedIn = isAuth;
+    if (isAuth) {
+      this.UserStoreService.getUser();
+    } else {
+      this.router.navigate([ROUTES.LOGIN], { replaceUrl: true });
+      this.UserStoreService.setName = '';
+    }
+  });
   }
 
-  handleShowCourse() {
-    console.log('Show Course button clicked!');
-  }
-
-  handleLogout() {
-
-    this.isLoggedIn = false;
-    this.AuthService.removeToken();
-    this.UserStoreService.isAdmin = false;
-        console.log(this.UserStoreService.isAdmin)
-    this.router.navigate([ROUTES.LOGIN]);
-  }
-
-  handleEditCourse() {
-    console.log('Edit Course button clicked!');
-  }
-
-  handleDeleteCourse() {
-    console.log('Delete Course button clicked!');
-  }
+handleLogout() {
+  this.AuthService.removeToken();
+  this.UserStoreService.isAdmin = false;
+  this.router.navigate([ROUTES.LOGIN], { replaceUrl: true });
+}
 }

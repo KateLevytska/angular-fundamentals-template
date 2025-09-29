@@ -20,11 +20,19 @@ export class UserStoreService {
         return this.UserService.getUser().pipe(take(1)).subscribe(
             {
                 next: (e : UserResponse) => {
-                    this.name$$.next(e.result.name)
+                    this.setName = e.result.name
                     if(e.result.role === 'admin') this.isAdmin = true;
                 }
             }
         );
+    }
+
+    set setName(value: string) {
+        this.name$$.next(value);
+    }
+
+    get getName() : string {
+        return this.name$$.value;
     }
 
     get isAdmin() {

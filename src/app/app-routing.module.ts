@@ -9,7 +9,6 @@ import { ROUTES } from './shared/constants/routes';
 export const routes: Routes = [
     {
         path: '',
-        canLoad: [AuthorizedGuard],
         redirectTo: 'courses',
         pathMatch: 'full'
     },
@@ -28,19 +27,21 @@ export const routes: Routes = [
     {
         path: 'courses',
         canLoad: [AuthorizedGuard],
+        canActivate: [AuthorizedGuard],
         loadChildren: () => import('./features/courses/courses.module')
             .then(m => m.CoursesModule)
     },
     {
         path: 'courses/add',
         canLoad: [AuthorizedGuard],
-        canActivate: [AdminGuard],
+        canActivate: [AuthorizedGuard, AdminGuard],
         loadChildren: () => import('./shared/components/course-form/course-form.module')
             .then(m => m.CourseFormModule)
     },
     {
         path: `${ROUTES.COURSE_INFO}/:id`,
         canLoad: [AuthorizedGuard],
+        canActivate: [AuthorizedGuard],
         loadChildren: () =>
             import('./features/course-info/course-info.module').then(
                 (m) => m.CourseInfoModule
@@ -49,10 +50,11 @@ export const routes: Routes = [
     {
         path: `${ROUTES.COURSE_EDIT}/:id`,
         canLoad: [AuthorizedGuard],
-        canActivate: [AdminGuard],
+        canActivate: [AdminGuard, AuthorizedGuard],
         loadChildren: () => import('./shared/components/course-form/course-form.module')
             .then(m => m.CourseFormModule)
     }
+    //todo
     /*  {
          path: '**',
          loadChildren: () => import('./shared/components/page-not-found-component/page-not-found-component.component')

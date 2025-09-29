@@ -1,6 +1,6 @@
 <app-header>
   <div class="app-root__login-block" *ngIf="isLoggedIn">
-    <p>{{ userName | async }}</p>
+    <p>{{ userName$ | async }}</p>
     <app-button
       buttonText="Logout"
       (click)="handleLogout()">

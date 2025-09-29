@@ -37,10 +37,10 @@ export class CoursesComponent implements OnInit {
     .pipe(take(1))
     .subscribe({
       next: ({ courses, authors }) => {
-        const byId = new Map(authors.map(a => [a.id, a.name] as const));
-        this.courses = courses.map((c: Course) => ({
-          ...c,
-          authors: c.authors.map((id: string) => byId.get(id) ?? 'Unknown')
+        const byId = new Map(authors.map(author => [author.id, author.name] as const));
+        this.courses = courses.map((course: Course) => ({
+          ...course,
+          authors: course.authors.map((id: string) => byId.get(id) ?? 'Unknown')
         }));
       },
       error: (err) => console.error('Search failed:', err)
@@ -52,7 +52,7 @@ export class CoursesComponent implements OnInit {
       courses: this.CoursesStoreService.getAll().pipe(map(r => r.result)),
       authors: this.CoursesStoreService.getAllAuthors().pipe(map(r => r.result))
     }).pipe(take(1)).subscribe(({ courses, authors }) => {
-      const byId = new Map(authors.map(a => [a.id, a.name] as const));
+      const byId = new Map(authors.map(author => [author.id, author.name] as const));
       this.courses = courses.map(course => ({
         ...course,
         authors: course.authors.map(id => byId.get(id) ?? 'Unknown')

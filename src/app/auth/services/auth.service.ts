@@ -54,7 +54,8 @@ export class AuthService {
     }
 
     removeToken() {
-       this.SessionStorageService.deleteToken()
+       this.SessionStorageService.deleteToken(),
+        this.isAuthorized$$.next(false);
     }
 
  

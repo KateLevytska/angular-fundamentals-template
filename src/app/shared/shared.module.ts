@@ -15,6 +15,7 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { AuthorsPipe } from './pipes/authors-ids.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
 import { PageNotFoundComponent } from './components/page-not-found-component/page-not-found-component.component';
+import { RouterLink } from "@angular/router";
 
 const components = [
   HeaderComponent,
@@ -36,8 +37,9 @@ const components = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    RouterLink
+],
   exports: [components]
 })
 export class SharedModule { }
