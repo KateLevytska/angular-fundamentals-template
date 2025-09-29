@@ -1,7 +1,7 @@
 @import 'src/app/shared/styles/styles';
 
 .course {
- min-width: 60vw;
+  min-width: 60vw;
 
   &__flex {
     display: flex;
@@ -24,9 +24,19 @@
   &__authors {
     margin-top: 8px;
     display: flex;
+    flex-direction: column;
 
     &-item {
       margin-right: 10px;
+      width: fit-content;
+      margin-top: 0;
+      align-items: baseline;
+      display: flex;
+      gap: 9px;
+    }
+
+    &-item:not(:last-child) {
+      margin-bottom: 16px;
     }
   }
 
