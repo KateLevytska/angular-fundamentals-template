@@ -1,42 +1,52 @@
 import { Injectable } from '@angular/core';
+import { Observable, throwError, BehaviorSubject, catchError, tap, finalize, of } from "rxjs";
+import { CoursesService } from "./courses.service";
+import { Courses, Course, CoursesResponce, AuthorsResponce, CreateCourse, AuthorsResponceAll, CourseDeleteResponce, onDeleteResponce } from '../interfaces';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesStoreService {
-    getAll(){
-        // Add your code here
+    private courses$$ = new BehaviorSubject(this.getAll);
+    private isLoading$$ = new BehaviorSubject(false);
+    courses$ = this.courses$$.asObservable();
+    isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
+
+    constructor(private CoursesService: CoursesService) { }
+
+    getAll(): Observable<CoursesResponce> {
+        return this.CoursesService.getAll();
     }
 
-    createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
+    createCourse(course: CreateCourse): Observable<Course> {
+        return this.CoursesService.createCourse(course);
     }
 
     getCourse(id: string) {
-        // Add your code here
+        return this.CoursesService.getCourse(id)
     }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
+    editCourse(id: string, course: Course) {
+        return this.CoursesService.editCourse(id, course);
     }
 
-    deleteCourse(id: string) {
-        // Add your code here
+    deleteCourse(id: string | undefined): Observable<onDeleteResponce> {
+        return this.CoursesService.deleteCourse(id);
     }
 
-    filterCourses(value: string) {
-        // Add your code here
+    filterCourses(value: string): Observable<any> {
+        return this.CoursesService.filterCourses(value)
     }
 
-    getAllAuthors() {
-        // Add your code here
+    getAllAuthors(): Observable<AuthorsResponceAll> {
+        return this.CoursesService.getAllAuthors()
     }
 
-    createAuthor(name: string) {
-        // Add your code here
+    createAuthor(value: { name: string }) {
+        return this.CoursesService.createAuthor(value);
     }
 
     getAuthorById(id: string) {
-        // Add your code here
+        this.CoursesService.getAuthorById(id);
     }
 }
