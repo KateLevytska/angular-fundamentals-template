@@ -11,12 +11,14 @@ export class AdminGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
       ): boolean | UrlTree {
-        {
+                        console.log(this.UserStoreService.isAdmin)
+
             if (this.UserStoreService.isAdmin) {
+                //console.log(this.UserStoreService.isAdmin)
                 return true;
             } else {
                 return this.router.createUrlTree([this.UserStoreService.getCourseUrl()]);
             }
-        }
+        
     }
 }

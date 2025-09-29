@@ -4,7 +4,7 @@ import { AuthService } from './auth/services/auth.service';
 import { UserStoreService } from './user/services/user-store.service';
 import { ROUTES } from './shared/constants/routes';
 import { Router } from '@angular/router';
-import { tap, throwError } from 'rxjs';
+import { take, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +25,10 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = e;
     })
     if(this.isLoggedIn) this.UserStoreService.getUser();
+    this.UserStoreService.isAdmin$.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+      console.log(this.isAdmin)
+    });
   }
 
   handleShowCourse() {
@@ -32,9 +36,11 @@ export class AppComponent implements OnInit {
   }
 
   handleLogout() {
+
     this.isLoggedIn = false;
-    this.isAdmin = false;
     this.AuthService.removeToken();
+    this.UserStoreService.isAdmin = false;
+        console.log(this.UserStoreService.isAdmin)
     this.router.navigate([ROUTES.LOGIN]);
   }
 

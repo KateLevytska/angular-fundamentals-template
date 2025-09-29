@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../../shared/constants/routes';
 import { CoursesStoreService } from '../../services/courses-store.service';
 import { Course } from '@app/interfaces';
+import { UserStoreService } from '../../user/services/user-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -12,24 +13,39 @@ import { Course } from '@app/interfaces';
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
+  isAdmin = this.UserStoreService.isAdmin
 
   constructor(
-    public CoursesStoreService: CoursesStoreService, private router: Router
+    public CoursesStoreService: CoursesStoreService, private router: Router, private UserStoreService: UserStoreService
   ) { }
 
   ngOnInit(): void {
     this.initCoursesAndAuthors();
   }
 
-  onSearchCourses(query: {search: string}): void {
-    console.log(query.search)
- 
-      this.CoursesStoreService.filterCourses(query.search).pipe(take(1)).subscribe((res) => {
-        console.log(res)
-      }
-      );
-    
-  }
+  onSearchCourses(query: { search: string }): void {
+  const term = (query?.search ?? '').trim();
+
+  const courses$ = term
+    ? this.CoursesStoreService.filterCourses(term).pipe(map(r => r.result))
+    : this.CoursesStoreService.getAll().pipe(map(r => r.result));
+
+  forkJoin({
+    courses: courses$,
+    authors: this.CoursesStoreService.getAllAuthors().pipe(map(r => r.result))
+  })
+    .pipe(take(1))
+    .subscribe({
+      next: ({ courses, authors }) => {
+        const byId = new Map(authors.map(a => [a.id, a.name] as const));
+        this.courses = courses.map((c: Course) => ({
+          ...c,
+          authors: c.authors.map((id: string) => byId.get(id) ?? 'Unknown')
+        }));
+      },
+      error: (err) => console.error('Search failed:', err)
+    });
+}
 
   initCoursesAndAuthors(): void {
     forkJoin({
@@ -43,6 +59,14 @@ export class CoursesComponent implements OnInit {
       }));
     });
   }
+
+  editCourse(id: string) {
+    return this.router.navigate([`/courses/edit/${id}`]);
+  }
+  showCourse(id: string) {
+    return this.router.navigate([`/courses/${id}`]);
+  }
+
 
   onDeleteCourse() {
     this.initCoursesAndAuthors();

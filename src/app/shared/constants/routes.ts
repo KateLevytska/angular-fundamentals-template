@@ -3,7 +3,7 @@ export enum ROUTES {
   REGISTER = 'registration',
   LOGOUT = 'logout',
   COURSES = 'courses',
-  COURSE_INFO = 'course',
-  COURSE_ADD = 'course/add',
-  COURSE_EDIT = 'course/edit',
+  COURSE_INFO = 'courses',
+  COURSE_ADD = 'courses/add',
+  COURSE_EDIT = 'courses/edit',
 }

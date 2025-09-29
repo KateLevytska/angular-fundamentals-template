@@ -18,22 +18,20 @@ export class CourseListComponent {
   @Input() authors: string[] = [];
   @Input() editable: boolean = this.UserStoreService.isAdmin;
 
-  @Output() showCourse = new EventEmitter<string | undefined>();
-  @Output() editCourse = new EventEmitter<string>();
+  @Output() showCourse = new EventEmitter<string>();
+  @Output() editCourse = new EventEmitter<any>();
   @Output() deleteCourse = new EventEmitter<boolean>();
 
   constructor(
     private UserStoreService: UserStoreService, private CourseStoreService: CoursesStoreService, private router: Router
   ) { }
 
-
-  onShow(id: string | undefined): void {
-    this.router.navigate([ROUTES.COURSE_INFO, id]);
+  onShow(id: string) {
+    this.showCourse.emit(id);
   }
 
-  onEditCourse(id: string | undefined) {
-    this.router.navigate([ROUTES.COURSE_EDIT, id]);
-    this.editCourse.emit(id);
+  onEdit(course: any) {
+    this.editCourse.emit(course);
   }
 
   onDeleteCourse(id: string | undefined) {

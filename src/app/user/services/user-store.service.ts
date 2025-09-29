@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError, BehaviorSubject, take } from "rxjs";
+import { Observable, BehaviorSubject, take } from "rxjs";
 import { UserService } from "./user.service";
-import { UserResponse, UserObject } from '@app/interfaces';
+import { UserResponse } from '@app/interfaces';
+import { ROUTES } from '../../shared/constants/routes';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserStoreService {
-    private courseUrl: string = '/course';
+    private courseUrl: string = ROUTES.COURSES;
     private isAdmin$$ = new BehaviorSubject<boolean>(false);
     private name$$ = new BehaviorSubject<string>('');
     name$: Observable<string> = this.name$$.asObservable();

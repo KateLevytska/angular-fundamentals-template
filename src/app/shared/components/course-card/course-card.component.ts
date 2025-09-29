@@ -13,7 +13,6 @@ export class CourseCardComponent {
   @Input() authors: string[];
   @Input() isEditible: boolean = true;
 
-  @Output() clickOnShow = new EventEmitter<void>();
 
   constructor() {
     this.title = 'Course Title';
@@ -21,9 +20,5 @@ export class CourseCardComponent {
     this.duration = 0;
     this.creationDate = (new Date()).toDateString();
     this.authors = ['Author Name'];
-  }
-
-  onShow() {
-    this.clickOnShow.emit();
   }
 }

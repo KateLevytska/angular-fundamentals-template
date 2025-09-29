@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, forkJoin, map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, Observable, switchMap, take } from 'rxjs';
 import { CoursesStoreService } from '../../services/courses-store.service';
 import { CourseResponce } from '@app/interfaces';
 
@@ -43,11 +43,21 @@ isShowBackButton: boolean = true;
     private coursesStore: CoursesStoreService
   ) {}
 
-  ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id')!;
-    this.coursesStore.getCourse(this.id).subscribe(
-      (res: CourseResponce) => this.course = res.result
-    );
-    this.coursesStore.getAllAuthors().subscribe();
-  }
+ngOnInit() {
+  this.id = this.route.snapshot.paramMap.get('id')!;
+
+  forkJoin({
+    course: this.coursesStore.getCourse(this.id).pipe(map((result: CourseResponce) => result.result)),
+    authors: this.coursesStore.getAllAuthors().pipe(map((result: AuthorsResp) => result.result))
+  })
+  .pipe(take(1))
+  .subscribe(({ course, authors }) => {
+    const byId = new Map(authors.map(a => [a.id, a.name] as const));
+    this.course = {
+      ...course,
+      creationDate: String(course.creationDate),
+      authors: course.authors.map(id => byId.get(id) ?? 'Unknown')
+    };
+  });
+}
 }
