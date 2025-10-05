@@ -1,0 +1,19 @@
+<div class="app-courses__top">
+  <app-search
+    [placeholder]="'Input'"
+    (searchValue)="onSearchCourses($event)">
+  </app-search>
+
+  <app-button
+    *ngIf="isAdmin"
+    buttonText="Add new course"
+    [routerLink]="['/courses/add']">
+  </app-button>
+</div>
+
+<app-course-list
+  [courses]="courses"
+  (showCourse)="showCourse($event)"
+  (editCourse)="editCourse($event)"
+  (deleteCourse)="onDeleteCourse($event)">
+</app-course-list>

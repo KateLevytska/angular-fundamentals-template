@@ -34,6 +34,10 @@ textarea:invalid {
   border-color: $color-red;
 }
 
+input:invalid.ng-untouched {
+  border-color: #cfcfcf;
+}
+
 label {
   font-weight: bold;
   font-size: 16px;

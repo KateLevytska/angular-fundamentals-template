@@ -23,3 +23,5 @@ export enum CoursesConstants {
     REQUEST_CREATE_COURSE_SUCCESS = '[Courses] Request Create Course Success',
     REQUEST_CREATE_COURSE_FAIL = '[Courses] Request Create Course Fail',
 }
+
+export const coursesFeatureKey = "courses";

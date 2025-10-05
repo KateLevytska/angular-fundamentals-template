@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree} from '@angular/router';
+import { UserStoreService } from "../services/user-store.service";
+import { ROUTES} from "@shared/constants/routes";
 
-@Injectable({
-    providedIn: 'root'
-})
-export class AdminGuard {
-    // Add your code here
+@Injectable({ providedIn: 'root' })
+export class AdminGuard implements CanActivate {
+    constructor(private router: Router, private userStore: UserStoreService) {}
+
+    canActivate(): boolean | UrlTree {
+        return this.userStore.isAdmin
+            ? true
+            : this.router.createUrlTree([ROUTES.COURSES]);
+    }
 }

@@ -5,14 +5,14 @@ import { AuthService } from "./services/auth.service";
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ],
-  providers: [
-    SessionStorageService,
-    AuthService,
-  ]
+    declarations: [],
+    imports: [
+        CommonModule,
+        HttpClientModule
+    ],
+    providers: [
+        SessionStorageService,
+        AuthService,
+    ]
 })
 export class AuthModule { }
