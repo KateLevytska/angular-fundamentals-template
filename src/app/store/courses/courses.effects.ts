@@ -72,10 +72,11 @@ export class CoursesEffects {
             )
         ));
 
-    /*deleteCourse$ = createEffect(() =>
+
+    deleteCourse$ = createEffect(() =>
         this.actions$.pipe(
             ofType(CoursesActions.requestDeleteCourse),
-            mergeMap((action: { id: string }) =>
+            mergeMap((action: { id: string }) : Observable<any> =>
                 this.CoursesService.deleteCourse(action.id)
                     .pipe(
                         map(() => CoursesActions.requestDeleteCourseSuccess({ id: action.id })),
@@ -83,11 +84,15 @@ export class CoursesEffects {
                             of(
                                 CoursesActions.requestDeleteCourseFail({
                                     error: error.message || 'Failed to delete course',
-                                })))
+                                })
+                            )
+                        )
                     )
             )
         )
-    );*/
+    );
+
+
 
     createCourse$ = createEffect(() =>
         this.actions$.pipe(
