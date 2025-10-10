@@ -12,7 +12,6 @@ import { catchError } from 'rxjs/operators';
 
 import { SessionStorageService } from '@app/auth/services/session-storage.service';
 import { AuthService } from '@app/auth/services/auth.service';
-import { ROUTES } from '@shared/constants/routes';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

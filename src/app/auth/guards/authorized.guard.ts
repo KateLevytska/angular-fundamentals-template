@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { CanLoad, CanActivate, Router, UrlTree } from '@angular/router';
 
 import { AuthService } from '@app/auth/services/auth.service';
-import { ROUTES } from '../../shared/constants/routes';
+import { ROUTES } from '@shared/constants/routes';
 
 @Injectable({
   providedIn: 'root',

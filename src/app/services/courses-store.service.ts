@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError, BehaviorSubject, catchError, tap, finalize, of } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { CoursesService } from "./courses.service";
-import { Courses, Course, CoursesResponce, AuthorsResponce, CreateCourse, AuthorsResponceAll, CourseDeleteResponce, onDeleteResponce } from '../interfaces';
+import {
+    Course,
+    CoursesResponse,
+    CreateEditCourse,
+    AuthorsResponseAll,
+    onDeleteResponse
+} from '../interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +20,11 @@ export class CoursesStoreService {
 
     constructor(private CoursesService: CoursesService) { }
 
-    getAll(): Observable<CoursesResponce> {
+    getAll(): Observable<CoursesResponse> {
         return this.CoursesService.getAll();
     }
 
-    createCourse(course: CreateCourse): Observable<Course> {
+    createCourse(course: CreateEditCourse): Observable<Course> {
         return this.CoursesService.createCourse(course);
     }
 
@@ -26,11 +32,11 @@ export class CoursesStoreService {
         return this.CoursesService.getCourse(id)
     }
 
-    editCourse(id: string, course: Course) {
+    editCourse(id: string, course: CreateEditCourse) {
         return this.CoursesService.editCourse(id, course);
     }
 
-    deleteCourse(id: string | undefined): Observable<onDeleteResponce> {
+    deleteCourse(id: string | undefined): Observable<onDeleteResponse> {
         return this.CoursesService.deleteCourse(id);
     }
 
@@ -38,7 +44,7 @@ export class CoursesStoreService {
         return this.CoursesService.filterCourses(value)
     }
 
-    getAllAuthors(): Observable<AuthorsResponceAll> {
+    getAllAuthors(): Observable<AuthorsResponseAll> {
         return this.CoursesService.getAllAuthors()
     }
 

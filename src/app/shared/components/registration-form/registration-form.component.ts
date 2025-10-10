@@ -4,10 +4,11 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from "../../../auth/services/auth.service";
-import { ROUTES } from '../../constants/routes';
 import { take } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthService } from "@app/auth/services/auth.service";
+import { ROUTES } from '../../constants/routes';
+
 
 @Component({
   selector: 'app-registration-form',

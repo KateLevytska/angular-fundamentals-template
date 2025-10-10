@@ -12,17 +12,17 @@ export interface Author {
     id: string,
 }
 
-export interface onDeleteResponce {
+export interface onDeleteResponse {
     successful: boolean;
     result: string;
 }
 
-export interface AuthorsResponceAll {
+export interface AuthorsResponseAll {
     successful: boolean;
     result: Author[]
 }
 
-export interface AuthorsResponce {
+export interface AuthorsResponse {
     successful: boolean;
     result: Author
 }
@@ -60,22 +60,16 @@ export interface UserResponse {
     result: UserObject
 }
 
-export interface CoursesResponce {
-  result: Course[],
-  succesfull: boolean
+export interface CoursesResponse {
+  result: Course[],successful: boolean
 }
 
-export interface CourseResponce {
+export interface CourseResponse {
   result: Course,
-  succesfull: boolean
+  successful: boolean
 }
 
-export interface CourseDeleteResponce {
-  result: string,
-  succesfull: boolean
-}
-
-export interface CreateCourse {
+export interface CreateEditCourse {
   title: string,
   description: string,
   duration: number,

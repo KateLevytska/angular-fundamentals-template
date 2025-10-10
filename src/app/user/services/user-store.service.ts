@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, take } from "rxjs";
+import {
+    Observable,
+    BehaviorSubject,
+    take,
+    tap
+} from "rxjs";
 import { UserService } from "./user.service";
 import { UserResponse } from '@app/interfaces';
-import { ROUTES } from '../../shared/constants/routes';
+import { ROUTES } from '@shared/constants/routes';
 
 @Injectable({
     providedIn: 'root'
@@ -16,16 +21,16 @@ export class UserStoreService {
 
     constructor(private UserService: UserService) { }
 
-    getUser() {
-        return this.UserService.getUser().pipe(take(1)).subscribe(
-            {
-                next: (e : UserResponse) => {
-                    this.setName = e.result.name
-                    if(e.result.role === 'admin') this.isAdmin = true;
-                }
-            }
+    getUser(): Observable<UserResponse> {
+        return this.UserService.getUser().pipe(
+            take(1),
+            tap((e: UserResponse) => {
+                this.setName = e.result.name;
+                this.isAdmin = e.result.role === 'admin';
+            })
         );
     }
+
 
     set setName(value: string) {
         this.name$$.next(value);

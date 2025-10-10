@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpSentEvent } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from "rxjs";
-import { catchError, retry, tap } from "rxjs/operators";
+import { HttpClient } from '@angular/common/http';
+import {
+    Observable,
+    BehaviorSubject
+} from "rxjs";
+import { tap } from "rxjs/operators";
 import { SessionStorageService } from "./session-storage.service";
-import { LoginResponse, User } from '../../interfaces';
-import { httpOptions } from '../../service.data';
-import { BASE_URL, ENDPOINTS } from '../../shared/constants/api.constants';
-import { ROUTES } from '../../shared/constants/routes';
+import {
+    LoginResponse,
+    User
+} from '@app/interfaces';
+import { httpOptions } from '@app/service.data';
+import {
+    BASE_URL,
+    ENDPOINTS
+} from '@shared/constants/api.constants';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private loginUrl: string = ROUTES.LOGIN;
-    private courseUrl: string = ROUTES.COURSES;
     private isAuthorized$$ = new BehaviorSubject(this.SessionStorageService.hasToken());
     isAuthorized$ : Observable<boolean> = this.isAuthorized$$.asObservable();
     token = this.SessionStorageService.getToken() as string;
@@ -56,15 +62,5 @@ export class AuthService {
     removeToken() {
        this.SessionStorageService.deleteToken(),
         this.isAuthorized$$.next(false);
-    }
-
- 
-
-    getLoginUrl() {
-        return this.loginUrl;
-    }
-
-    getCourseUrl() {
-        return this.courseUrl;
     }
 }

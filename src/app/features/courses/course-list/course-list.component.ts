@@ -1,9 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Course, onDeleteResponce } from '../../../interfaces';
-import { UserStoreService } from '../../../user/services/user-store.service'
-import { CoursesStoreService } from '../../../services/courses-store.service';
-import { Router } from '@angular/router';
-import { ROUTES } from '../../../shared/constants/routes';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    OnInit
+} from '@angular/core';
+import {
+    Course,
+    onDeleteResponse
+} from '@app/interfaces';
+import { UserStoreService } from '@app/user/services/user-store.service'
+import { CoursesStoreService } from '@app/services/courses-store.service';
 import { take } from 'rxjs';
 
 
@@ -23,7 +30,8 @@ export class CourseListComponent implements OnInit {
   @Output() deleteCourse = new EventEmitter<boolean>();
 
   constructor(
-    private UserStoreService: UserStoreService, private CourseStoreService: CoursesStoreService, private router: Router
+    private UserStoreService: UserStoreService,
+    private CourseStoreService: CoursesStoreService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +50,7 @@ export class CourseListComponent implements OnInit {
 
   onDeleteCourse(id: string | undefined) {
     this.CourseStoreService.deleteCourse(id).pipe(take(1)).subscribe({
-      next: (res: onDeleteResponce) => {
+      next: (res: onDeleteResponse) => {
         if (res.successful) {
           this.deleteCourse.emit(true);
         }

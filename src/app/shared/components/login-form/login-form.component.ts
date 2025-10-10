@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from "../../../auth/services/auth.service";
+import { AuthService } from "@app/auth/services/auth.service";
 import { ROUTES } from '../../constants/routes';
 import { take } from 'rxjs';
 

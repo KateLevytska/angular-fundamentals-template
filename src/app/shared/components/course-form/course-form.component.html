@@ -102,7 +102,7 @@
 </form>
 <div class="form__action">
   <app-button buttonText="Cancel" routerLink="/courses"></app-button>
-  <app-button buttonText="Create" type="submit" (click)="onSubmit()"></app-button>
+  <app-button [buttonText]="textButton" type="submit" (click)="onSubmit()"></app-button>
 </div>
 <ng-template #emptyBlock>
   <p class="course__authors-item">Author list is empty</p>

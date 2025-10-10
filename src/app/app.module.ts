@@ -17,7 +17,12 @@ import { routing } from './app-routing.module';
     FontAwesomeModule,
     routing
   ],
-  providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
+  providers: [
+      AuthorizedGuard,
+      NotAuthorizedGuard,
+      CoursesService,
+      CoursesStoreService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

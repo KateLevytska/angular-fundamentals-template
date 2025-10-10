@@ -14,7 +14,6 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { AuthorsPipe } from './pipes/authors-ids.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
-import { PageNotFoundComponent } from './components/page-not-found-component/page-not-found-component.component';
 import { RouterLink } from "@angular/router";
 
 const components = [
@@ -23,7 +22,6 @@ const components = [
   SearchComponent,
   ModalComponent,
   CourseCardComponent,
-  PageNotFoundComponent,
   DurationPipe,
   CustomDatePipe,
   AuthorsPipe,

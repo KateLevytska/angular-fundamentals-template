@@ -3,6 +3,10 @@ $color-white: #fff;
 $color-gray: #CFCFCF;
 $color-red: #FF0000;
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
 }

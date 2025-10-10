@@ -1,10 +1,8 @@
-import { RouterModule, Routes } from '@angular/router';
-import { AuthorizedGuard } from './auth/guards/authorized.guard';
-import { NotAuthorizedGuard } from './auth/guards/not-authorized.guard';
-import { AdminGuard } from './user/guards/admin.guard';
-import { AppModule } from './app.module';
-import { CoursesComponent } from './features/courses/courses.component';
-import { ROUTES } from './shared/constants/routes';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthorizedGuard} from './auth/guards/authorized.guard';
+import {NotAuthorizedGuard} from './auth/guards/not-authorized.guard';
+import {AdminGuard} from './user/guards/admin.guard';
+import {ROUTES} from '@shared/constants/routes';
 
 export const routes: Routes = [
     {
@@ -13,19 +11,19 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'login',
+        path: `${ROUTES.LOGIN}`,
         canActivate: [NotAuthorizedGuard],
         loadChildren: () => import('./shared/components/login-form/login-form.module')
             .then(m => m.LoginModule)
     },
     {
-        path: 'registration',
+        path: `${ROUTES.REGISTER}`,
         canActivate: [NotAuthorizedGuard],
         loadChildren: () => import('./shared/components/registration-form/registration-form.module')
             .then(m => m.RegistrationModule)
     },
     {
-        path: 'courses',
+        path: `${ROUTES.COURSES}`,
         canLoad: [AuthorizedGuard],
         canActivate: [AuthorizedGuard],
         loadChildren: () => import('./features/courses/courses.module')
@@ -54,12 +52,6 @@ export const routes: Routes = [
         loadChildren: () => import('./shared/components/course-form/course-form.module')
             .then(m => m.CourseFormModule)
     }
-    //todo
-    /*  {
-         path: '**',
-         loadChildren: () => import('./shared/components/page-not-found-component/page-not-found-component.component')
-             .then(m => m.PageNotFoundComponent)
-     }  */
 ];
 
 export const routing = RouterModule.forRoot(routes);

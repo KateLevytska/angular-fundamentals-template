@@ -3,4 +3,14 @@
     <app-button *ngIf="this.isAdmin" buttonText="Add new course" routerLink="/courses/add"></app-button>
 </div>
 
-<app-course-list [courses]="courses" (showCourse)="showCourse($event)" (editCourse)="editCourse($event)" (deleteCourse)="onDeleteCourse()"></app-course-list>
+<app-course-list *ngIf="courses.length > 0; else emptyBlock" [courses]="courses"
+                 (showCourse)="showCourse($event)"
+                 (editCourse)="editCourse($event)"
+                 (deleteCourse)="onDeleteCourse()">
+</app-course-list>
+
+<ng-template #emptyBlock>
+    <app-info>
+        <app-button *ngIf="this.isAdmin" buttonText="Add new course" routerLink="/courses/add"></app-button>
+    </app-info>
+</ng-template>
